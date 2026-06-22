@@ -25,6 +25,11 @@ class BasicUuid implements \Stringable
     
     public static function new(bool $dashLess = false): self {
         $data = random_bytes(16);
+		$time = time();
+	    $data[0] = chr(($time >> 24) & 0xff);
+	    $data[1] = chr(($time >> 16) & 0xff);
+	    $data[2] = chr(($time >> 8) & 0xff);
+	    $data[3] = chr($time & 0xff);
         $data[6] = chr(ord($data[6]) & 0x0f | 0x40);
         $data[8] = chr(ord($data[8]) & 0x3f | 0x80);
         if($dashLess){ return new self(vsprintf('%s%s%s%s%s%s%s%s', str_split(bin2hex($data), 4))); }
