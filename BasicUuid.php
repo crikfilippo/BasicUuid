@@ -6,6 +6,7 @@ class BasicUuid implements \Stringable
 {
 	
 	public static ?string $staticValue = null;
+	private string $value;
 
     public function __construct(null|string|self $value = null, bool $dashLess = false) {
         if (is_null($value)) { $this->value = (string)self::new($dashLess); }
