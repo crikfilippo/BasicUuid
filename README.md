@@ -21,10 +21,10 @@ $uuid = new BasicUuid('123e4567e89b12d3a456426614174000');
 Validate UUID format (implicitly done when instancing):
 ```php
 $uuid1 = '123e4567-e89b-12d3-a456-426614174000';
-$isUuid1Valid = BasicUuid::validate($uuid1);
+$isUuid1Valid = BasicUuid::valid($uuid1);
 //or
-$uuid2 = new BasicUuid();
-$isUuid2Valid = BasicUuid::validate($uuid2);
+$uuid2 = '123e4567e89b12d3a456426614174000';
+$isUuid2Valid = BasicUuid::valid($uuid2);
 ```
 
 Add/Remove dashes (chained or static)
