@@ -7,14 +7,16 @@ class BasicUuid implements \Stringable
 	
 	public static ?string $staticValue = null;
 
-    public function __construct(private ?string $value = null, bool $dashLess = false) {
-        if (empty($value)) { $this->value = (string)self::new($dashLess); }
+    public function __construct(nul|string|self $value = null, bool $dashLess = false) {
+        if (is_null($value)) { $this->value = (string)self::new($dashLess); }
         else{ 
-			$value = strtolower($value); 
-			if( ! self::valid($value)) {  throw new \InvalidArgumentException("Invalid UUID"); }
-			$this->value = $value;
+			if(is_string($value)){
+				$value = strtolower($value); 
+				if( ! self::valid($value)) {  throw new \InvalidArgumentException("Invalid UUID"); }
+			}
+			$this->value = (string)$value;
 		}
-        self::$staticValue = $value; 
+        self::$staticValue = (string)$value; 
     }
     
     public function __toString(): string {
@@ -29,8 +31,8 @@ class BasicUuid implements \Stringable
         return new self(vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($data), 4)));
     }
 
-    public static function valid(?string $uuid = null): bool {
-    	if( ! is_null($uuid) ){ $value = $uuid; }
+    public static function valid(null|string|self $uuid = null): bool {
+    	if( ! is_null($uuid) ){ $value = (string)$uuid; }
     	else{ $value = self::$staticValue; if( is_null($value) ){ return false; } }
 		if(preg_match('/[A-Z]/', $value)){ return false; }
     	//dashed
@@ -46,15 +48,15 @@ class BasicUuid implements \Stringable
         return true;
     }
 
-    public static function removeDashes(?string $uuid = null): self {
-    	if( ! is_null($uuid) ){ $value = $uuid; if( ! self::valid($value) ){ throw new \Exception('invalid uuid.'); } }
+    public static function removeDashes(null|string|self $uuid = null): self {
+    	if( ! is_null($uuid) ){ $value = (string)$uuid; if( ! self::valid($value) ){ throw new \Exception('invalid uuid.'); } }
     	else{ $value = self::$staticValue; if( is_null($value) ){ throw new \Exception('uuid not initialized.'); } }
 		if( ! str_contains($value,'-')){ return new self($value); }
         return new self(str_replace('-', '', $value));
     }
     
-    public static function addDashes(?string $uuid = null): self {
-    	if( ! is_null($uuid) ){ $value = $uuid; if( ! self::valid($value) ){ throw new \Exception('invalid uuid.'); } }
+    public static function addDashes(null|string|self $uuid = null): self {
+    	if( ! is_null($uuid) ){ $value = (string)$uuid; if( ! self::valid($value) ){ throw new \Exception('invalid uuid.'); } }
     	else{ $value = self::$staticValue; if( is_null($value) ){ throw new \Exception('uuid not initialized.'); } }
     	if(str_contains($value,'-')){ return new self($value); }
     	return new self(substr($value,0,8).'-'.substr($value,8,4).'-'.substr($value,12,4).'-'.substr($value,16,4).'-'.substr($value,20));
