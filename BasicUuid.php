@@ -9,9 +9,9 @@ class BasicUuid implements \Stringable
 
     public function __construct(private ?string $value = null, bool $dashLess = false) {
         if (empty($value)) { $this->value = (string)self::new($dashLess); }
-        else{ $this->value = $value; }
+        else{ $this->value = strtolower($value); }
         self::$staticValue = $value; 
-        if( empty($value) && ! self::valid($this->value)) {  throw new \InvalidArgumentException("Invalid UUID"); }
+        if( empty($value) || ! self::valid($this->value)) {  throw new \InvalidArgumentException("Invalid UUID"); }
     }
     
     public function __toString(): string {
@@ -29,6 +29,7 @@ class BasicUuid implements \Stringable
     public static function valid(?string $uuid = null): bool {
     	if( ! is_null($uuid) ){ $value = $uuid; }
     	else{ $value = self::$staticValue; if( is_null($value) ){ return false; } }
+		if(preg_match('/[A-Z]/', $value){ return false; }
     	//dashed
         if( ! str_contains($value, '-')){
             if(strlen($value) !== 32){ return false; }
