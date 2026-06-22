@@ -1,4 +1,4 @@
-A simple php class to generate and validate UUIDs (V8).
+A simple php class to generate and validate UUIDs (V4).
 
 # Usage
 
