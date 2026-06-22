@@ -5,13 +5,17 @@ A simple php class to generate and validate UUIDs (V8).
 Generate new UUID:
 ```php
 $uuid = new BasicUuid();
+echo $uuid;
 //or
 $uuid = BasicUuid::generate();
-//or
-$uuid = new BasicUuid('123e4567-e89b-12d3-a456-426614174000');
-$uuid = new BasicUuid('123e4567e89b12d3a456426614174000');
-//printing
 echo $uuid;
+```
+
+Instance from string:
+```php
+$uuid = new BasicUuid('123e4567-e89b-12d3-a456-426614174000');
+//or
+$uuid = new BasicUuid('123e4567e89b12d3a456426614174000');
 ```
 
 Validate UUID format (implicitly done when instancing):
