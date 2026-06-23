@@ -3,8 +3,8 @@
 namespace BasicUuid;
 
 /**
-* @method self removeDashes(string|self $uuid)
-* @method self addDashes(string|self $uuid)
+* @method self removeDashes()
+* @method self addDashes()
 * @method static self removeDashes(string|self $uuid)
 * @method static self addDashes(string|self $uuid)
 */
