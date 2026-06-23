@@ -2,6 +2,12 @@
 
 namespace BasicUuid;
 
+/**
+* @method self removeDashes(string|self $uuid)
+* @method self addDashes(string|self $uuid)
+* @method static self removeDashes(string|self $uuid)
+* @method static self addDashes(string|self $uuid)
+*/
 class BasicUuid implements \Stringable
 {
 	
