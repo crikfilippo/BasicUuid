@@ -6,11 +6,13 @@ class BasicUuid implements \Stringable
 {
 	
 	private string $value;
+    public bool $hasDashes;
 
     public function __construct(null|string|self $value = 'NEW') {
         if( ! is_null($value) && is_string($value) && $value === 'NEW'){ $this->value = (string)self::new(); return; }
         if( ! self::valid($value)) {  throw new \InvalidArgumentException("Invalid UUID"); }
         $this->value = (string)$value;
+        $this->hasDashes = str_contains($this->value,'-');
     }
     
     public function __toString(): string {
@@ -18,8 +20,18 @@ class BasicUuid implements \Stringable
     }
 
     public function __call(string $name, array $arguments){
-        if($name == 'removeDashes'){ return self::_removeDashes($this->value); }
-        if($name == 'addDashes'){ return self::_addDashes($this->value); }
+
+        if($name == 'removeDashes'){ 
+            $this->value = (string)self::_removeDashes($this->value); 
+            $this->hasDashes = false; 
+            return $this; 
+        }
+
+        if($name == 'addDashes'){ 
+            $this->value = (string)self::_addDashes($this->value); 
+            $this->hasDashes = true; 
+            return $this; 
+        }
     }
 
     public static function __callStatic(string $name, array $arguments) {
