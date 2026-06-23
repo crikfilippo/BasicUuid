@@ -2,12 +2,12 @@ A simple php class to generate and validate UUIDs (V4 with Unix timestamp prefix
 
 # Usage
 
-Generate new UUID:
+Generate new UUID (object or static method)
 ```php
-$uuid = new BasicUuid();
+$uuid = new BasicUuid(); 
 echo $uuid;
 //or
-$uuid = BasicUuid::generate();
+$uuid = BasicUuid::new(); 
 echo $uuid;
 ```
 
@@ -27,7 +27,7 @@ $uuid2 = '123e4567e89b12d3a456426614174000';
 $isUuid2Valid = BasicUuid::valid($uuid2);
 ```
 
-Add/Remove dashes (chained or static)
+Add/Remove dashes ( object or static method)
 ```php
 $uuid = new BasicUuid('123e4567-e89b-12d3-a456-426614174000');
 echo $uuid->removeDashes();
