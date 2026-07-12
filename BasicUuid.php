@@ -3,15 +3,15 @@
 namespace BasicUuid;
 
 /**
- * A simple PHP class to generate and validate UUIDs (V4 with Unix timestamp prefix)
- * 
- * @method self removeDashes() Remove dashes from UUID format
- * @method self addDashes() Add dashes to UUID format
- * @method static self removeDashes(string|self $uuid) Remove dashes from UUID format
- * @method static self addDashes(string|self $uuid) Add dashes to UUID format
- * @method static self new() Generate new UUID with Unix timestamp prefix
- * @method static bool valid(null|string|self $uuid) Validate UUID format
+ *
+ * @author Filippo Maria Grilli
+ * @github crikfilippo
+ * @version 1.0.0
+ * @since 2026-01-15
+ * @license MIT
+ *
  */
+
 class BasicUuid implements \Stringable
 {
 	
